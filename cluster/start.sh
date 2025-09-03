@@ -76,3 +76,7 @@ data:
 EOF
 
 kubectl apply -f cluster/deploy-ingress-nginx.yaml
+
+# install istio
+istioctl install --set profile=ambient --skip-confirmation
+kubectl apply -f cluster/istio.yaml

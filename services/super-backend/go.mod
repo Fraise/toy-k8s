@@ -1,4 +1,4 @@
-module web-server
+module super-backend
 
 go 1.24
 

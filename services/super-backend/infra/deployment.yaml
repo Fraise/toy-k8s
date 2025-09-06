@@ -32,3 +32,64 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: super-backend-deployment-v2
+  labels:
+    app: super-backend-v2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: super-backend-v2
+  template:
+    metadata:
+      labels:
+        app: super-backend-v2
+    spec:
+      containers:
+        - name: super-backend
+          image: localhost:5000/super-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: super-backend-v2
+spec:
+  selector:
+    app: super-backend-v2
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: super-backend
+spec:
+  hosts:
+    - super-backend
+  http:
+    - route:
+        - destination:
+            host: super-backend
+          weight: 70
+        - destination:
+            host: super-backend-v2
+          weight: 30
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: super-backend
+spec:
+  host: super-backend
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_REQUEST

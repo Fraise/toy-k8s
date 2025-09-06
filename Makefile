@@ -18,9 +18,9 @@ build-super-backend:
 deploy-super-backend:
 	kubectl apply -f services/super-backend/infra/deployment.yaml
 
-start-cluster:
-	cluster/start.sh
+start-kind-cluster:
+	cluster/start-kind.sh
+	cluster/configure.sh
 
-stop-cluster:
-	kind delete cluster
-	cluster/stop.sh
+stop-kind-cluster:
+	cluster/stop-kind.sh

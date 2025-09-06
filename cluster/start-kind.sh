@@ -20,24 +20,7 @@ fi
 # https://github.com/kubernetes-sigs/kind/issues/2875
 # https://github.com/containerd/containerd/blob/main/docs/cri/config.md#registry-configuration
 # See: https://github.com/containerd/containerd/blob/main/docs/hosts.md
-#cat <<EOF | kind create cluster --config=-
-#kind: Cluster
-#apiVersion: kind.x-k8s.io/v1alpha4
-#containerdConfigPatches:
-#- |-
-#  [plugins."io.containerd.grpc.v1.cri".registry]
-#    config_path = "/etc/containerd/certs.d"
-#---
-#kind: Cluster
-#apiVersion: kind.x-k8s.io/v1alpha4
-#nodes:
-#  - role: control-plane
-#    extraPortMappings:
-#      - containerPort: 80
-#        hostPort: 80
-#        protocol: TCP
-#EOF
-kind create cluster --config=cluster/config.yaml
+kind create cluster --config=cluster/kind-config.yaml
 
 # 3. Add the registry config to the nodes
 #
@@ -77,6 +60,3 @@ EOF
 
 kubectl apply -f cluster/deploy-ingress-nginx.yaml
 
-# install istio
-istioctl install --set profile=ambient --skip-confirmation
-kubectl apply -f cluster/istio.yaml

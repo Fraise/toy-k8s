@@ -1,5 +1,3 @@
-# install istio
-istioctl install --set profile=ambient --skip-confirmation
 kubectl apply -f cluster/k8s-gateway-api.yaml
 
 #setup ambient mode & waypoint proxy

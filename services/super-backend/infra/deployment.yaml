@@ -16,7 +16,10 @@ spec:
     spec:
       containers:
         - name: super-backend
-          image: localhost:5000/super-backend:latest
+          #          kind
+          #          image: localhost:5000/super-backend:latest
+          #          k3d
+          image:  k3d-registry.localhost:5000/super-backend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -51,7 +54,10 @@ spec:
     spec:
       containers:
         - name: super-backend
-          image: localhost:5000/super-backend:latest
+#          kind
+#          image: localhost:5000/super-backend:latest
+#          k3d
+          image:  k3d-registry.localhost:5000/super-backend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

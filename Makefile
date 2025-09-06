@@ -20,7 +20,21 @@ deploy-super-backend:
 
 start-kind-cluster:
 	cluster/start-kind.sh
+	# install istio
+	istioctl install --set profile=ambient --skip-confirmation
 	cluster/configure.sh
 
 stop-kind-cluster:
 	cluster/stop-kind.sh
+
+start-k3d-cluster:
+	cluster/start-k3d.sh
+	# install istio
+	istioctl install --set profile=ambient --skip-confirmation --set values.global.platform=k3d
+	cluster/configure.sh
+
+stop-k3d-cluster:
+	cluster/stop-k3d.sh
+
+kiali-dashboard:
+	istioctl dashboard kiali

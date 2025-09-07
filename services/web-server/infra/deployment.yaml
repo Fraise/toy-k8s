@@ -19,7 +19,7 @@ spec:
           #          kind
           #          image: localhost:5000/super-backend:latest
           #          k3d
-          image:  k3d-registry.localhost:5000/super-backend:latest
+          image:  k3d-registry.localhost:5000/web-server:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
